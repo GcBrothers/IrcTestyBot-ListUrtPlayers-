@@ -17,9 +17,11 @@ class myIRCBot(ircbot.SingleServerIRCBot):
     def on_pubmsg(self, serv, ev):
         canal = ev.target()
         message = ev.arguments()[0].lower()
-        if message == "salut":
+        author = irclib.nm_to_n(ev.source())
+        if "salut" in message:
             serv.privmsg("#LcD", "Hey ! How are you ?")
-            #serv.kick("#LcD", "alphaPlayer", "Les insultes ne sont pas autorisées ici !")
+        if "noob" in message:
+            serv.kick("#LcD", author, "Noob Yourself.")
         elif message[0] == "!":
             serv.privmsg("#LcD", "Commande détectée")
             if message == "!players":
